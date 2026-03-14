@@ -6,3 +6,4 @@ pip install -r requirements.txt
 python app.py
 
 Runs on port 5000.
+CI/CD deployment test
