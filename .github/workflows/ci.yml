@@ -39,10 +39,23 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build image
+      - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/internal-utility-service:latest .
 
-      - name: Push image
+      - name: Push Docker image
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/internal-utility-service:latest
+
+      - name: Deploy to EC2
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ${{ secrets.EC2_USER }}
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            export SECRET_KEY='${{ secrets.SECRET_KEY }}'
+            export APP_ENV='${{ secrets.APP_ENV }}'
+            cd /home/ubuntu
+            chmod +x deploy.sh
+            ./deploy.sh
