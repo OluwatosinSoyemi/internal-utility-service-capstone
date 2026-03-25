@@ -1,4 +1,4 @@
----
+
 # Internal Utility Service (Production-Ready Deployment)
 
 ## 📌 Overview
@@ -135,10 +135,6 @@ The application is deployed on an AWS EC2 instance.
 - Docker installed
 - Security groups configured
 - Only required ports open (80, 443)
-
-### Deployment is handled by:
-```bash
-deploy.sh
 
 ### Deployment Process
 - Pull latest Docker image  
